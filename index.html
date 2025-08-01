@@ -1,0 +1,580 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet"/>
+    <title>CuyUniersity SESI-6</title>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a onclick="reRender()" id="home">HOME</a>
+            <a onclick="toggleDarkMode()" id="mode">Mode Dark</a>
+            <a onclick="toggleFamilyMode()" id="familyBtn">Mode Jomblo</a>
+            <a onclick="toggleFoodMode()" id="foodBtn">Mode Nasgor</a>
+            <a onclick="toggleSleepMode()" id="sleepBtn">Mode Tidur</a>
+            <a onclick="toggleCoffeMode()" id="coffeBtn">Mode Ngopi</a>
+            <a onclick="toggleBuahMode()" id="buahBtn">Mode Buah</a>
+            <a onclick="toggleSuksesMode()" id="suksesBtn">Mode Sukses</a>
+            <a onclick="toggleSadMode()" id="sadBtn">Mode Sad</a>
+            <a onclick="exitMode()" id="exitBtn">Mode Keluar</a>
+
+        </nav>
+       
+    <div class="image-wrapper">
+    <img id="famImg" src="" alt="Mode Image" style="display: none;" />
+    <img id="nasgorImg" src="" alt="Mode Nasgor" style="display: none; max-width: 300px;" />
+    <img id="mieAyamImg" src="" alt="Mode Mie Ayam" style="display: none; max-width: 300px;" />
+    <img id="sleepImg" src="" alt="Mode Tidur" style="display: none; max-width: 300px;" />
+    <img id="bangkitImg" src="" alt="Mode Bangkit" style="display: none; max-width: 300px;" />
+    <img id="coffeImg" src="" alt="Mode Ngopi" style="display: none; max-width: 300px;" />
+    <img id="fokusImg" src="" alt="Mode Fokus" style="display: none; max-width: 300px;" />
+    <img id="buahImg" src="" alt="Mode Buah" style="display: none; max-width: 300px;" />
+    <img id="gorenganImg" src="" alt="Mode Gorengan" style="display: none; max-width: 300px;" />
+    <img id="suksesImg" src="" alt="Mode Sukses" style="display: none; max-width: 300px;" />
+    <img id="gagalImg" src="" alt="Mode Gagal" style="display: none; max-width: 300px;" />
+    <img id="sadImg" src="" alt="Mode Sad" style="display: none; max-width: 300px;" />
+    <img id="happyImg" src="" alt="Mode Happy" style="display: none; max-width: 300px;" />
+    <h1 class="mode-title" style="display: none;">SESI 6 UNIVERSITY</h1>
+    <h1  id="mainTitle" class="main-title">SESI 6 UNIVERSITY</h1>
+    </div>
+    <p class="info" id="info"></p> 
+    </div>
+
+  
+
+ 
+   
+
+    <!-- initializing function script -->
+    <script>
+
+        const body = document.body;
+        const info = document.getElementById("info");
+        const mode = document.getElementById("mode");
+        const home = document.getElementById("home");
+        const familyBtn = document.getElementById("familyBtn");
+        const famImg = document.getElementById("famImg");
+        const mainTitle = document.querySelector(".main-title");
+        const modeTitle = document.querySelector(".mode-title");
+        const foodBtn = document.getElementById("foodBtn");
+        const nasgorImg = document.getElementById("nasgorImg");
+        const mieAyamImg = document.getElementById("mieAyamImg");
+        const sleepBtn = document.getElementById("sleepBtn");
+        const sleepImg = document.getElementById("sleepImg");
+        const bangkitImg = document.getElementById("bangkitImg");
+        const coffeBtn = document.getElementById("coffeBtn");
+        const coffeImg = document.getElementById("coffeImg");
+        const seriusImg = document.getElementById("fokusImg");
+        const buahBtn = document.getElementById("buahBtn");
+        const buahImg = document.getElementById("buahImg");
+        const gorenganImg = document.getElementById("gorenganImg");
+        const suksesBtn = document.getElementById("suksesBtn");
+        const suksesImg = document.getElementById("suksesImg");
+        const gagalImg = document.getElementById("gagalImg");
+        const sadBtn = document.getElementById("sadBtn");
+        const sadImg = document.getElementById("sadImg");
+        const happyImg = document.getElementById("happyImg");
+
+        function hideAllModeExcept(activeBtn) {
+            if (activeBtn !== mode) mode.style.display = "none";
+            if (activeBtn !== familyBtn) familyBtn.style.display = "none";
+            if (activeBtn !== foodBtn) foodBtn.style.display = "none";
+            if (activeBtn !== sleepBtn) sleepBtn.style.display = "none";
+            if (activeBtn !== coffeBtn) coffeBtn.style.display = "none";
+            if (activeBtn !== buahBtn) buahBtn.style.display = "none";
+            if (activeBtn !== suksesBtn) suksesBtn.style.display = "none";
+            if (activeBtn !== sadBtn) sadBtn.style.display = "none";
+        }
+       const sadLimit = 5;
+       let sadCounter = 0;
+       let sadRemaining = null;
+       let isSadMode = true;
+
+       const suksesLimit = 5;
+       let suksesCounter = 0;
+       let suksesRemaining = null;
+       let isSuksesMode = true;
+
+       const buahLimit = 5;
+       let buahCounter = 0;
+       let buahRemaining = null;
+       let isBuahMode = true;
+
+       const coffeLimit = 5;
+       let coffeCounter = 0;
+       let coffeRemaining = null;
+       let isCoffeMode = true;
+        
+       const sleepLimit = 5;
+       let sleepCounter = 0;
+       let sleepRemaining = null;
+       let isSleepMode = true;
+
+       const foodLimit = 5;
+       let foodCounter = 0;
+       let foodRemaining = null;
+       let isNasgor = true;
+
+
+        const darkLimit = 5;
+        let darkCounter = 0; 
+        let darkRemainingLeft = null;
+
+        const familyLimit = 5;
+        let familyCounter = 0;
+        let familyRemaining = null;
+        let isFamilyMode = false;
+
+        //const url gambarnya nya si mode keluarga/jomblo
+        const famUrl = "https://raw.githubusercontent.com/TiadorFxCraft/familyimage/refs/heads/main/vecteezy_cute-people-training-exercise-cartoon-character_34095160.png";
+        const singleUrl = "https://raw.githubusercontent.com/TiadorFxCraft/gamvbar-adek/refs/heads/main/_Pngtree_single_child_character_design_in_5359694-removebg-preview.png";
+        //const url gambar nya si mode nasor/mieayam
+        const nasgorUrl = "https://raw.githubusercontent.com/TiadorFxCraft/project-JS.sesi-5/refs/heads/main/pngtree-nasi-goreng-png-image_16113969-removebg-preview.png";
+        const mieAyamUrl = "https://raw.githubusercontent.com/TiadorFxCraft/project-JS.sesi-5/refs/heads/main/mie-ayam-10205989-8264226-removebg-preview.png";
+        //const url gambar nya si mode sleep/bangkit
+        const sleepUrl = "https://raw.githubusercontent.com/TiadorFxCraft/project-JS.sesi-5/refs/heads/main/%E2%80%94Pngtree%E2%80%943d%20peaceful%20girl%20sleeping%20under_20705501.png";
+        const bangkitUrl = "https://raw.githubusercontent.com/TiadorFxCraft/project-JS.sesi-5/refs/heads/main/girl-wakes-up-bed-12029484-10612655-removebg-preview.png";
+        //const url gambarnya si mode coffe/fokus
+        const coffeUrl = "https://raw.githubusercontent.com/TiadorFxCraft/project-JS.sesi-5/refs/heads/main/025b7878e06fdb96cd9f5526123a57dd-removebg-preview.png";
+        const seriusUrl = "https://raw.githubusercontent.com/TiadorFxCraft/project-JS.sesi-5/refs/heads/main/82f96369de77596d250a8f1fcd15c360-removebg-preview.png";
+        //const url gambarna si mode Buah/Gorengan
+        const buahUrl = "https://raw.githubusercontent.com/TiadorFxCraft/project-JS.sesi-5/refs/heads/main/1753922699309-removebg-preview.png";
+        const GorenganUrl = "https://raw.githubusercontent.com/TiadorFxCraft/project-JS.sesi-5/refs/heads/main/1753922880941-removebg-preview.png";
+        //const url gambarnya si mode sukses/gagal
+        const suksesUrl = "https://raw.githubusercontent.com/TiadorFxCraft/project-JS.sesi-5/refs/heads/main/1753925099542-removebg-preview.png";
+        const gagalUrl = "https://raw.githubusercontent.com/TiadorFxCraft/project-JS.sesi-5/refs/heads/main/1753925460411-removebg-preview.png";
+        //const url gambarnya si mode sad/happy
+        const sadUrl = "https://raw.githubusercontent.com/TiadorFxCraft/project-JS.sesi-5/refs/heads/main/1753952207611-removebg-preview.png";
+        const happyUrl = "https://raw.githubusercontent.com/TiadorFxCraft/project-JS.sesi-5/refs/heads/main/1753952227855-removebg-preview.png";
+
+        function toggleSadMode() {
+            if (sadRemaining == null)  {
+                sadRemaining = sadLimit;
+
+                hideAllModeExcept(sadBtn);
+            }
+
+            sadCounter++;
+            sadRemaining--;
+            isSadMode = !isSadMode;
+
+            body.classList.toggle("sad", isSadMode);
+            body.classList.toggle("happy", !isSadMode);
+            body.classList.remove("dark");
+
+            sadImg.style.display = "none";
+            happyImg.style.display = "none";
+            suksesImg.style.display = "none";
+            gagalImg.style.display = "none";
+            gorenganImg.style.display = "none";
+            buahImg.style.display = "none";
+            gorenganImg.style.display = "none";
+            coffeImg.style.display = "none";
+            seriusImg.style.display = "none";
+            sleepImg.style.display = "none";
+            bangkitImg.style.display = "none";
+            nasgorImg.style.display = "none";
+            mieAyamImg.style.display = "none";
+            famImg.style.display = "none";
+
+            if (isSadMode) {
+                sadImg.src = happyUrl;
+                sadImg.style.display = "block";
+                sadBtn.textContent = "Mode Sad";
+                mainTitle.classList.remove("glow-putih");
+                info.classList.remove("glow-putih");
+            } else {
+                happyImg.src = sadUrl;
+                happyImg.style.display = "block";
+                sadBtn.textContent = "Mode Happy";
+                mainTitle.classList.add("glow-putih");
+                info.classList.add("glow-putih");
+            }
+
+            info.textContent = `Mode ${isSadMode ? "Happy" : "Sad"} dipakai${sadCounter}x, tersisa${sadRemaining}`;
+
+            if (sadRemaining === 0) {
+                info.textContent = "JATAH FITUR SAD/HAPPY MODE SUDAH HABIS";
+                sadBtn.style.display = "none";
+                suksesBtn.style.display = "none";
+                buahBtn.style.display = "none";
+                coffeBtn.style.display = "none";
+                sleepBtn.style.display = "none";
+                foodBtn.style.display = "none";
+                familyBtn.style.display = "none";
+                coffeBtn.style.display = "none";
+                mode.style.display = "none";
+                home.textContent = "RESTART";
+            }
+            body.style.backgroundColor = isSadMode ? "#ffde7d" : "#1f1f2e";
+            mainTitle.style.color = isSadMode ? "black" : "white";
+            info.style.color = isSadMode ? "black" : "white";
+
+
+        }
+
+        function toggleSuksesMode() {
+            if (suksesRemaining == null) {
+                suksesRemaining = suksesLimit;
+
+                hideAllModeExcept(suksesBtn);
+            }
+
+            suksesCounter++;
+            suksesRemaining--;
+            isSuksesMode = !isSuksesMode;
+
+            body.classList.toggle("sukses", isSuksesMode);
+            body.classList.toggle("gagal", !isSuksesMode);
+            body.classList.remove("dark");
+            
+            suksesImg.style.display = "none";
+            gagalImg.style.display = "none";
+            gorenganImg.style.display = "none";
+            buahImg.style.display = "none";
+            gorenganImg.style.display = "none";
+            coffeImg.style.display = "none";
+            seriusImg.style.display = "none";
+            sleepImg.style.display = "none";
+            bangkitImg.style.display = "none";
+            nasgorImg.style.display = "none";
+            mieAyamImg.style.display = "none";
+            famImg.style.display = "none";
+
+            if (isSuksesMode) {
+                suksesImg.src = gagalUrl;
+                suksesImg.style.display = "block";
+                suksesBtn.textContent = "Mode Sukses";
+            } else {
+                gagalImg.src = suksesUrl;
+                gagalImg.style.display = "block";
+                suksesBtn.textContent = "Mode Gagal";
+            }
+
+            info.textContent = `Mode ${isSuksesMode ? "Gagal" : "Sukses"} dipakai${suksesCounter}x, tersisa${suksesRemaining}`;
+
+            if (suksesRemaining === 0) {
+                info.textContent = "JATAH FITUR SUKSES/GAGAL MODE SUDAH HABIS";
+                suksesBtn.style.display = "none";
+                buahBtn.style.display = "none";
+                coffeBtn.style.display = "none";
+                sleepBtn.style.display = "none";
+                foodBtn.style.display = "none";
+                familyBtn.style.display = "none";
+                coffeBtn.style.display = "none";
+                mode.style.display = "none";
+                home.textContent = "RESTART";
+            }
+            body.style.backgroundColor = isSuksesMode ? "#D3D3D3" : "#A8BCA1";
+
+        }
+
+    
+        function toggleBuahMode() {
+            if (buahRemaining == null) {
+                buahRemaining = buahLimit;
+
+                hideAllModeExcept(buahBtn);
+            }
+
+            buahCounter++;
+            buahRemaining--;
+            isBuahMode = !isBuahMode;
+            
+            body.classList.toggle("buah", isBuahMode);
+            body.classList.toggle("gorengan", !isBuahMode);
+            body.classList.remove("dark");
+            
+            suksesImg.style.display = "none";
+            gagalImg.style.display = "none";
+            buahImg.style.display = "none";
+            gorenganImg.style.display = "none";
+            coffeImg.style.display = "none";
+            seriusImg.style.display = "none";
+            sleepImg.style.display = "none";
+            bangkitImg.style.display = "none";
+            nasgorImg.style.display = "none";
+            mieAyamImg.style.display = "none";
+            famImg.style.display = "none";
+
+            if (isBuahMode) {
+                buahImg.src = GorenganUrl;
+                buahImg.style.display = "block";
+                buahBtn.textContent = "Mode Buah";
+            } else {
+                gorenganImg.src = buahUrl;
+                gorenganImg.style.display = "block";
+                buahBtn.textContent = "Mode Gorengan";
+            }
+            info.textContent = `Mode ${isBuahMode ? "Gorengan" : "Buah"} dipakai${buahCounter}x, tersisa${buahRemaining}`;
+
+            if (buahRemaining === 0) {
+                info.textContent = "JATAH FITUR BUAH/GORENGAN MODE SUDAH HABIS";
+                suksesBtn.style.display = "none";
+                buahBtn.style.display = "none";
+                coffeBtn.style.display = "none";
+                sleepBtn.style.display = "none";
+                foodBtn.style.display = "none";
+                familyBtn.style.display = "none";
+                coffeBtn.style.display = "none";
+                mode.style.display = "none";
+                home.textContent = "RESTART";
+            }
+            body.style.backgroundColor = isBuahMode ? "#ADD8E6" : "#FFFACD";
+
+        }
+
+        function toggleCoffeMode() {
+            if (coffeRemaining == null) {
+                coffeRemaining = coffeLimit;
+
+                hideAllModeExcept(coffeBtn);
+            }
+
+            coffeCounter++;
+            coffeRemaining--;
+            isCoffeMode = !isCoffeMode;
+
+            body.classList.toggle("coffe", isCoffeMode);
+            body.classList.toggle("serius", !isCoffeMode);
+            body.classList.remove("dark");
+            
+            coffeImg.style.display = "none";
+            seriusImg.style.display = "none";
+            sleepImg.style.display = "none";
+            bangkitImg.style.display = "none";
+            nasgorImg.style.display = "none";
+            mieAyamImg.style.display = "none";
+            famImg.style.display = "none";
+            
+            //tampilkan gambar sesuai modenya
+            if (isCoffeMode) {
+            seriusImg.src = seriusUrl;
+            seriusImg.style.display = "block";
+            coffeBtn.textContent = "Mode Ngopi";
+            } else {
+            coffeImg.src = coffeUrl;
+            coffeImg.style.display = "block";
+            coffeBtn.textContent = "Mode Serius";
+            }
+            info.textContent = `Mode ${isCoffeMode ? "Serius" : "Ngopi"} dipakai${coffeCounter}x, tersisa ${coffeRemaining}`;
+
+            if (coffeRemaining === 0) {
+                info.textContent = "JATAH FITUR NGOPI/SERIUS MODE SUDAH HABIS";
+                coffeBtn.style.display = "none";
+                sleepBtn.style.display = "none";
+                foodBtn.style.display = "none";
+                familyBtn.style.display = "none";
+                coffeBtn.style.display = "none";
+                mode.style.display = "none";
+                home.textContent = "RESTART";
+            }
+            body.style.backgroundColor = isCoffeMode ? "#708090" : "#b5651d";
+        }
+
+
+        function toggleSleepMode() {
+            if (sleepRemaining == null) {
+                sleepRemaining = sleepLimit;
+                
+                hideAllModeExcept(sleepBtn);
+            }
+
+            sleepCounter++;
+            sleepRemaining--;
+            isSleepMode = !isSleepMode;
+
+            body.classList.toggle("sleep", isSleepMode);
+            body.classList.toggle("bangkit", !isSleepMode);
+            body.classList.remove("dark");
+            
+            sleepImg.style.display = "none";
+            bangkitImg.style.display = "none";
+            nasgorImg.style.display = "none";
+            mieAyamImg.style.display = "none";
+            famImg.style.display = "none";
+
+
+            //tampilkan gambar sesuai modenya
+            if (isSleepMode) {
+            bangkitImg.src = bangkitUrl;
+            bangkitImg.style.display = "block";
+            sleepBtn.textContent = "Mode Tidur";
+            mainTitle.classList.remove("glow-putih");
+            info.classList.remove("glow-putih");
+            } else {
+            sleepImg.src = sleepUrl;
+            sleepImg.style.display = "block";
+            sleepBtn.textContent = "Mode Bangkit";
+            mainTitle.classList.add("glow-putih");
+            info.classList.add("glow-putih");
+            }
+
+            info.textContent = `Mode ${isSleepMode ? "Bangkit" : "Tidur"} dipakai${sleepCounter}x, tersisa${sleepRemaining}`;
+
+            if(sleepRemaining === 0) {
+                info.textContent = "JATAH FITUR TIDUR/BANGKIT MODE SUDAH HABIS";
+                sleepBtn.style.display = "none";
+                foodBtn.style.display = "none";
+                familyBtn.style.display = "none";
+                coffeBtn.style.display = "none";
+                mode.style.display = "none";
+                home.textContent = "RESTART";
+            }
+
+            body.style.backgroundColor = isSleepMode ? "#ffbe76" : "#0f2027";
+            mainTitle.style.color = isSleepMode ? "black" : "white";
+            info.style.color = isSleepMode ? "black" : "white";
+
+        }
+
+        function toggleFoodMode() {
+            if (foodRemaining == null) {
+                foodRemaining = foodLimit;
+
+                hideAllModeExcept(foodBtn);
+                }
+
+            foodCounter++;
+            foodRemaining--;
+            isNasgor = !isNasgor;
+
+            body.classList.toggle("nasgor", isNasgor);
+            body.classList.toggle("mieayam", !isNasgor);
+            body.classList.remove("dark");
+
+            nasgorImg.style.display = "none";
+            mieAyamImg.style.display = "none";
+            famImg.style.display = "none";
+            sleepImg.style.display = "none";
+
+            //tampilkan gambar sesuai mode nya
+            if (isNasgor) {
+            mieAyamImg.src = mieAyamUrl;
+            mieAyamImg.style.display = "block";
+            foodBtn.textContent = "Mode Nasgor";
+            } else {
+            nasgorImg.src = nasgorUrl;
+            nasgorImg.style.display = "block";
+            foodBtn.textContent = "Mode Mie Ayam";
+            }
+
+            info.textContent = `Mode ${isNasgor ? "Mie Ayam" : "Nasgor"} dipakai${foodCounter}x, tersisa${foodRemaining}`;
+
+            if(foodRemaining === 0) {
+                info.textContent = "JATAH FITUR NASGOR/MIE AYAM MODE SUDAH HABIS";
+                foodBtn.style.display = "none";
+                familyBtn.style.display = "none";
+                mode.style.display = "none";
+                home.textContent = "RESTART";
+            }
+            body.style.backgroundColor = isNasgor ? "#f5deb3" : "#ffe4b5";
+            
+        }
+
+
+        function toggleDarkMode() {
+         if (darkRemainingLeft === null) {
+            darkRemainingLeft = darkLimit; 
+
+            hideAllModeExcept(mode);
+            }
+          
+            darkCounter++; 
+            darkRemainingLeft--;
+            body.classList.toggle("dark");
+            
+            if (body.classList.contains("dark")) {
+                mainTitle.classList.add("glow-putih");
+                info.classList.add("glow-putih");
+            } else {
+                mainTitle.classList.remove("glow-putih");
+                info.classList.remove("glow-putih");
+
+            }
+            mode.textContent = body.classList.contains("dark") ? "Mode Light" : "Mode Dark";
+            const currentMode = body.classList.contains("dark") ? "Dark" : "light";
+            info.textContent = ` Mode ${currentMode} dipakai ${darkCounter}x, tersisa ${darkRemainingLeft}`;
+            if (darkRemainingLeft === 0) {
+                info.textContent = "JATAH FITUR DARK/LIGHT MODE SUDAH HABIS";
+                familyBtn.style.display = "none";
+                mode.style.display = "none";
+                home.textContent = "RESTART";
+            }
+         }
+
+        function toggleFamilyMode() {
+            if (familyRemaining === null) {
+            familyRemaining = familyLimit;
+
+            hideAllModeExcept(familyBtn);
+            }
+            
+
+            familyCounter++;
+            familyRemaining--;
+            isFamilyMode = !isFamilyMode;
+
+            body.classList.toggle("family", isFamilyMode);
+            body.classList.toggle("jomblo", !isFamilyMode);
+            body.classList.remove("dark");
+
+            famImg.src = isFamilyMode ? singleUrl : famUrl ;
+            famImg.style.display = "block";
+           
+
+            familyBtn.textContent = isFamilyMode ? "Mode Keluarga" : "Mode Jomblo";
+            info.textContent = `Mode ${isFamilyMode ? "Keluarga" : "Jomblo"} dipakai ${familyCounter}x, tersisa${familyRemaining}`;
+
+            if (familyRemaining === 0) {
+                info.textContent = "JATAH FITUR KELUARGA/JOMBLO MODE SUDAH HABIS";
+                familyBtn.style.display = "none";
+                mode.style.display = "none";
+                home.textContent = "RESTART";
+            }
+        }
+        
+        function reRender() {
+            mode.style.display = "inline";
+            familyBtn.style.display = "inline";
+            foodBtn.style.display = "inline";
+            sleepBtn.style.display = "inline";
+            coffeBtn.style.display = "inline";
+            buahBtn.style.display = "inline";
+            location.reload();
+        }
+
+        const mainTitleElement = document.getElementById("mainTitle");
+        const fullText = "SESI 6 UNIVERSITY";
+        let currentIndex = 0;
+
+        function animateTyping() {
+            if (currentIndex <= fullText.length) {
+                mainTitleElement.textContent = fullText.substring(0, currentIndex);
+                currentIndex++;
+                setTimeout(animateTyping, 100);
+            }
+        }
+
+        window.onload = () => {
+            mainTitleElement.textContent = "";
+            animateTyping();
+        };
+      
+        function exitMode() {
+            //untuk agar user ketika klik langsung mengarah ke browsing utama user masig masing kalau ada
+            if (document.referrer) {
+                window.history.back() 
+            } else {
+             // Kalau tidak ada halaman sebelumnya, arahkan ke Google (atau halaman utama kamu)
+             window.location.href = "https://www.google.com";
+            }
+        }
+
+
+    </script>
+    </body>
+</html>
