@@ -14,7 +14,7 @@ Ini adalah project HTML/CSS/JS dari sesi 6 CuyUniversity, berisi fitur **beragam
 
 ## 🎮 Demo
 Klik untuk lihat langsung:  
-👉[ [https://username.github.io/namarepo/](https://username.github.io/namarepo/)](https://tiadorfxcraft.github.io/sesi-6-toggle-mode/)
+👉(https://tiadorfxcraft.github.io/sesi-6-toggle-mode/)
 
 ## ⚙️ Teknologi
 - HTML
